@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>WPC-to-1S System</title>
+        <link rel="icon" href="faviconV2.png" type="image/x-icon">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="hamburger-menu">
+            <div class="hamburger-icon" id="hamburger">
+            ☰
+            </div>
+        </div>
+        <div class="status-indicator-container">
+            <div class="status-indicator" id="status-indicator"></div>
+            <span class="status-text" id="status-text">Disconnected</span>
+        </div>
+
+        <div class="main-container" id="main-container">
+            <div class="header">
+                <h1>I2C/GPIO Controller</h1>
+            </div>
+
+            <!--
+            IC selection menu
+             -->
+            <div id="modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid #ccc; box-shadow: 0px 4px 6px rgba(0,0,0,0.2);">
+                <p>Choose an option:</p>
+                <!-- <button class="modalOption">LN1608</button>
+                <button class="modalOption">LN8411</button> -->
+                <button class="modalOption">WPC-to-1S</button>
+                <button id="closeModal">Close</button>
+            </div>
+            <!--
+            IC selection menu end
+             -->
+
+
+            <div class="section">
+                <h2>I2C Manual Control</h2>
+            </div>
+            <div class="section">
+                <div class="i2c-container">
+                    <div class="i2c-controls">
+                        <div class="input-group">
+                            <label for="i2c-slave-address">I2C Device Addr.</label>
+                            <input type="text" id="i2c-slave-address" placeholder="Slave Address (hex)" value="0xf0">
+                        </div>
+                        <div class="input-group">
+                            <label for="i2c-register-address">Reg. Addr.</label>
+                            <input type="text" id="i2c-register-address" placeholder="Register Address (hex)" value="0x40">
+                        </div>
+                        <div class="input-group">
+                            <label for="i2c-data">Data</label>
+                            <input type="text" id="i2c-data" placeholder="Data (hex)" value="0x00">
+                        </div>
+                        <div class="input-group-short">
+                            <label for="i2c-length">I2C Read Length</label>
+                            <input type="number" id="i2c-length" placeholder="Length" value="1">
+                        </div>
+                        <div class="button-group">
+                            <button id="i2c-write">Write</button>
+                            <button id="i2c-read">Read</button>
+                            <button id="i2c-find-addr">Find Address</button>
+                            <button id="i2c-load-script">Load Script</button>
+                            <button id="i2c-run-script">Run Script</button>
+                        </div>
+                        <input type="file" id="fileInput" accept=".txt" style="display: none;">
+                    </div>
+                </div>
+            </div>
+            <div class="section-gui" id="section-gui">
+                <h2 id="gui-title">GUI not loaded</h2>
+            </div>
+
+
+        <div class="section">
+        </div>
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button id="tab-button-log" data-tab="logTab" class="tab-button active">Log</button>
+            </div>
+            <div id="logTab" class="tab-content active">
+                <div class="button-group">
+                    <button id="clear-log">Clear</button>
+                    <button id="extract-log">Extract</button>
+                </div>
+                <div class="log-container">
+                    <pre id="log"></pre>
+                </div>
+            </div>
+            <div id="etc1Tab" class="tab-content">
+                <div class="script-container">
+                    <h2>Scripts</h2>
+                    <textarea id="script"></textarea>
+                    <button id="script-run">Run</button>
+                </div>
+                <div class="script-container">
+                    <textarea id="console"></textarea>
+                </div>
+            </div>
+            <div id="etc2Tab" class="tab-content">
+            </div>
+        </div>
+
+        <div class="sidebar" id="sidebar">
+            <ul>
+                <li><a href="#" id="menu-connect-aardvark">Connect Aardvark</a></li>
+                <!-- <li><a href="#" id="menu-disconnect-aardvark">Disconnect Aardvark</a></li> -->
+                <!-- <li><a href="#" id="menu-connect-mcp2221a">Connect MCP2221A</a></li> -->
+                <!-- <li><a href="#" id="menu-load-IC">Load IC</a></li> -->
+                <!-- <li><a href="#" id="menu-services">Services</a></li> -->
+                <li><a href="#" id="menu-contact">Contact</a></li>
+            </ul>
+        </div>
+    </body>
+    <script type="module", src="script.js"></script>
+</html>
