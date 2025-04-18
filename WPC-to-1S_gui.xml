@@ -1,0 +1,148 @@
+<gui>
+    <ic-name>WPC-to-1S System</ic-name>
+    <i2c-addr>0xE4</i2c-addr>
+    <section id = "6-to-2 Operation Mode Control">
+        <line id="line0">
+            <dropdown id="operation-mode" width="150" layout="vertical">
+                <default>1</default>
+                <option value="0">Idle</option>
+                <option value="1">Bypass</option>
+                <option value="2">SW 6-2</option>
+                <!-- <option value="3">SW_4-2</option> -->
+                <label-text>Operation Mode</label-text>
+                <command>
+                    <i2c-slave>0xE4</i2c-slave>
+                    <mode-config>
+                        <name>LN8620</name>
+                    </mode-config>
+                </command>
+            </dropdown>
+            <dropdown id="lb-enable" width="150" layout="vertical">
+                <default>0</default>
+                <option value="0">LB Disable</option>
+                <option value="1">LB Enable</option>
+                <label-text>LB Control</label-text>
+                <command>
+                    <i2c-slave>0xE4</i2c-slave>
+                    <lb-control>
+                        <name>LN8620</name>
+                    </lb-control>
+                </command>
+            </dropdown>
+            <dropdown id="switching-frequency" width="150" layout="vertical">
+                <default>8</default>
+                <option value="8">150 kHz</option>
+                <option value="9">165 kHz</option>
+                <option value="10">180 kHz</option>
+                <option value="11">195 kHz</option>
+                <option value="12">210 kHz</option>
+                <option value="13">225 kHz</option>
+                <option value="14">240 kHz</option>
+                <option value="15">255 kHz</option>
+                <option value="0">270 kHz</option>
+                <option value="1">285 kHz</option>
+                <option value="2">300 kHz</option>
+                <option value="3">315 kHz</option>
+                <option value="4">330 kHz</option>
+                <option value="5">345 kHz</option>
+                <option value="6">360 kHz</option>
+                <option value="7">375 kHz</option>
+                <label-text>FSW</label-text>
+                <command>
+                    <i2c-slave>0xE4</i2c-slave>
+                    <i2c-write>
+                        <addr>0x30</addr>
+                        <data>0xAA</data>
+                    </i2c-write>
+                    <i2c-update>
+                        <addr>0x31</addr>
+                        <bits>7,6,5,4</bits>
+                    </i2c-update>
+                    <i2c-write>
+                        <addr>0x30</addr>
+                        <data>0x00</data>
+                    </i2c-write>
+                </command>
+            </dropdown>
+        </line>
+    </section>
+
+    <section id="">
+    </section>
+
+    <section id = "2nd Stage Operation Mode Control">
+        <line id="line0">
+            <button id="button-2nd-read-operation-mode" width="150">
+                <text>Read OP Mode</text>
+                <command>
+                    <i2c-slave>0xF0</i2c-slave>
+                    <i2c-read>
+                        <addr>0x0D</addr>
+                        <set-ui>
+                            <id>2nd-override-operation-mode</id>
+                            <bits>3</bits>
+                        </set-ui>
+                        <set-ui>
+                            <id>2nd-operation-mode</id>
+                            <bits>2,1,0</bits>
+                        </set-ui>
+                    </i2c-read>
+                </command>
+            </button>
+            <dropdown id="2nd-override-operation-mode" width="120">
+                <default>0</default>
+                <option value="0">OVRD DIS</option>
+                <option value="1">OVRD EN</option>
+                <label-text>Override Mode</label-text>
+                <command>
+                    <i2c-slave>0xF0</i2c-slave>
+                    <i2c-update>
+                        <addr>0x0D</addr>
+                        <bits>3</bits>
+                    </i2c-update>
+                </command>
+            </dropdown>
+            <dropdown id="2nd-operation-mode" width="120">
+                <default>1</default>
+                <option value="1">SW 2-1</option>
+                <option value="2">SW 3-1</option>
+                <label-text>Operation Mode</label-text>
+                <command>
+                    <i2c-slave>0xF0</i2c-slave>
+                    <i2c-update>
+                        <addr>0x0D</addr>
+                        <bits>2,1,0</bits>
+                    </i2c-update>
+                </command>
+            </dropdown>
+            <dropdown id="2nd-switching-enable" width="120">
+                <default>0</default>
+                <option value="0">Standby</option>
+                <option value="1">Switching</option>
+                <label-text>Switching Enable</label-text>
+                <command>
+                    <i2c-slave>0xF0</i2c-slave>
+                    <i2c-update>
+                        <addr>0x0A</addr>
+                        <bits>7</bits>
+                    </i2c-update>
+                </command>
+            </dropdown>
+        </line>
+        <line id="line1">
+            <button id="button-2nd-en-high" width="70">
+                <text>EN H</text>
+                <command>
+                    <ldo-config>on</ldo-config>
+                </command>
+            </button>
+            <button id="button-2nd-en-low" width="70">
+                <text>EN L</text>
+                <command>
+                    <ldo-config>off</ldo-config>
+                </command>
+            </button>
+        </line>
+    </section>
+
+</gui>
